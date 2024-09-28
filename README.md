@@ -5,10 +5,6 @@
 > BOT
 
 ## Библиотеки, которые я буду использовать
-- Библиотека 1
-- Библиотека N
-
-## Референсы, которые мне пригодятся
 import discord
 import random
 import requests
@@ -21,3 +17,6 @@ import asyncio
 import os
 import uuid
 
+## Референсы, которые мне пригодятся
+https://github.com/MRMENTOLS/BotDS_AI_update
+https://colab.research.google.com/drive/1HFND1oaaMeh-1sFk-K1Y3804ZDansFtT?usp=sharing
