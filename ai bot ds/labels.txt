@@ -1,0 +1,9 @@
+0 bersh
+1 ersh
+2 karas
+3 krasnoperka
+4 lesh
+5 okun
+6 shuka
+7 som
+8 sudak
