@@ -1,0 +1,56 @@
+import discord
+import requests
+from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup
+import pandas as pd
+from discord.ext import commands
+import pymorphy2
+from wordcloud import WordCloud
+from matplotlib import pyplot as plt
+import random
+
+TOKEN = ''
+CHANNEL_NAME = '1228754643845251262'
+
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='$', intents=intents)
+
+url = 'https://new-science.ru/category/news/page/3/'
+
+@bot.command()
+async def pars(ctx):
+    # Здесь мы используем библиотеку requests для отправки GET-запроса
+    # к указанному URL-адресу и получения ответа.
+    # Если получили статус 200 - то все пошло отлично и страница доступна.
+    response = requests.get(url)
+
+    # Мы передаем текст ответа от сайта (response.text)
+    # и указываем парсер, который будет использоваться ("lxml"),
+    # чтобы создать объект BeautifulSoup для дальнейшего анализа HTML-кода.
+
+    bs = BeautifulSoup(response.text,"lxml")
+
+    # Здесь мы ищем все элементы <h2 class="post-title"> на странице
+    # и сохраняем их в переменной temp. Это все заголовки новостей на странице, которые мы хотим собрать.
+    temp = bs.find_all('h2', 'post-title')
+
+    # Мы создаем словарь с ключами "news" и "links",
+    # которые будут содержать заголовки новостей и ссылки на новости соответственно.
+
+    dict_news = {"news": []}
+
+    for i in temp:
+        dict_news["news"].append(i.text)
+
+    # Здесь мы используем библиотеку pandas для создания DataFrame
+    # из словаря dict_news с указанными столбцами "news" и "links".
+    # Этот DataFrame будет содержать собранные данные новостей.
+
+    df_news = pd.DataFrame(dict_news, columns=["news"])
+
+    await ctx.send(df_news)
+
+bot.run(TOKEN)
